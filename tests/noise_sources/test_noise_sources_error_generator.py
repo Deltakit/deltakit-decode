@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 
 import deltakit_circuit as sp
 import deltakit_stim as stim

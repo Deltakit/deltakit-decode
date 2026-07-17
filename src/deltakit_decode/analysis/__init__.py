@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 """Description of ``deltakit.decode.analysis`` namespace here."""
 
 from deltakit_decode.analysis._decoder_manager import (

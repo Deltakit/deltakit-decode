@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 """Module containing useful functions to aid in the interaction of decoding graphs and Stim circuits."""
 
 import deltakit_stim as stim

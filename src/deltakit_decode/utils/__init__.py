@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 """Description of ``deltakit.decode.utils`` namespace here."""
 
 from deltakit_decode.utils._decoding_graph_visualiser import VisDecodingGraph3D

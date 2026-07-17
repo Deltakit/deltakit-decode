@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 """
 Sub-package for defining sources of noise to be used in QEC experiments.
 """
