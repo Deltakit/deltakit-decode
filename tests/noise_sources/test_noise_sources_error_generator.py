@@ -139,14 +139,12 @@ class TestExhaustiveWeightedMatchingNoise:
         }
         exhaustion_ceiling = (
             min(
-                [
-                    sum(
-                        decoding_graph.edge_records[edge].weight
-                        for edge in logicals[0]
-                        if decoding_graph.detector_records[edge.second].time == time
-                    )
-                    for time in times
-                ]
+                sum(
+                    decoding_graph.edge_records[edge].weight
+                    for edge in logicals[0]
+                    if decoding_graph.detector_records[edge.second].time == time
+                )
+                for time in times
             )
             / 2
         )
