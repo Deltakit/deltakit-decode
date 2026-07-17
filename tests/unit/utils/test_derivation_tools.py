@@ -16,9 +16,7 @@ from deltakit_decode.utils._derivation_tools import (
 )
 from deltakit_decode.utils._graph_circuit_helpers import parse_stim_circuit
 
-REFERENCE_DATA_DIR = (
-    Path(__file__).parent.parent.parent.parent.parent / "tests" / "reference_data"
-)
+REFERENCE_DATA_DIR = Path(__file__).parent.parent.parent / "reference_data"
 
 
 class TestDerivationTools:

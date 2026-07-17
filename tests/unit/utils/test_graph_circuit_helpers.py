@@ -1,5 +1,7 @@
 # (c) Copyright Riverlane 2020-2026. All rights reserved.
+from importlib.util import find_spec
 from itertools import tee
+from pathlib import Path
 
 import deltakit_circuit as sp
 import deltakit_stim as stim
@@ -8,10 +10,17 @@ import pytest
 from deltakit_core.decoding_graphs import FixedWidthBitstring
 
 from deltakit_decode.utils._graph_circuit_helpers import (
+    get_irrelevant_nodes,
+    get_trimmed_circuit,
     parse_stim_circuit,
     split_measurement_bitstring,
     stim_circuit_to_graph_dem,
 )
+
+try:
+    from lestim import Circuit as StimCircuit
+except ImportError:
+    from stim import Circuit as StimCircuit
 
 
 def test_stim_circuit_to_graph_dem_does_not_decompose_the_rep_code():
@@ -255,3 +264,317 @@ class TestParseStimCircuit:
         )
 
         assert output_orderings >= input_orderings
+
+
+def get_untrimmed_example_stim(test_case_id: int, reference_data_dir: Path) -> str:
+    data_dir = reference_data_dir / "trim_examples" / "untrimmed"
+    circuit_file_path = data_dir / f"TestCase-{test_case_id}.stim"
+    with Path.open(circuit_file_path, "r", encoding="utf-8") as circuit_file:
+        return circuit_file.read()
+
+
+def get_trimmed_example_stim(test_case_id: int, reference_data_dir: Path) -> str:
+    data_dir = reference_data_dir / "trim_examples" / "trimmed"
+    circuit_file_path = data_dir / f"TestCase-{test_case_id}-trimmed.stim"
+    with Path.open(circuit_file_path, "r", encoding="utf-8") as circuit_file:
+        return circuit_file.read()
+
+
+def get_expected_nodes_20549():
+    nodes = []
+    for i in range(39):
+        start = 12 + 24 * i
+        sub = [*list(range(start, start + 2)), *list(range(start + 4, start + 14))]
+        nodes += sub
+    return set(nodes)
+
+
+def get_expected_nodes_20612():
+    nodes = []
+    for i in range(39):
+        start = 20 + 40 * i
+        sub = [*list(range(start, start + 4)), *list(range(start + 24, start + 40))]
+        nodes += sub
+    return set(nodes)
+
+
+class TestGetIrrelevantNodes:
+    @pytest.mark.parametrize(("use_lestim"), [False, True])
+    @pytest.mark.parametrize(
+        ("test_case_id", "expected_detectors"),
+        [
+            (19977, set()),  # Full mem rep
+            (
+                20277,
+                {
+                    4,
+                    6,
+                    7,
+                    8,
+                    12,
+                    14,
+                    15,
+                    16,
+                    20,
+                    22,
+                    23,
+                    24,
+                    28,
+                    30,
+                    31,
+                    32,
+                    36,
+                    38,
+                    39,
+                    40,
+                    44,
+                    46,
+                    47,
+                    48,
+                    52,
+                    54,
+                    55,
+                    56,
+                },
+            ),  # Full mem rplanar
+            (20549, get_expected_nodes_20549()),  # Full mem rplanar min df-3
+            (20612, get_expected_nodes_20612()),  # Full mem unrot planar min df-3
+            (20710, set()),  # Half mem rplanar
+            (
+                20782,
+                {
+                    6,
+                    7,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    20,
+                    21,
+                    23,
+                    24,
+                    25,
+                    26,
+                    27,
+                    28,
+                    34,
+                    35,
+                    37,
+                    38,
+                    39,
+                    40,
+                    41,
+                    42,
+                    48,
+                    49,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    62,
+                    63,
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70,
+                    76,
+                    77,
+                    79,
+                    80,
+                    81,
+                    82,
+                    83,
+                    84,
+                },
+            ),  # Rectangular mem rplanar
+            (
+                20875,
+                (
+                    {
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        128,
+                        129,
+                        130,
+                        131,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        145,
+                        146,
+                        147,
+                        148,
+                        149,
+                        132,
+                        26,
+                        27,
+                        28,
+                        29,
+                        30,
+                        158,
+                        159,
+                        160,
+                        161,
+                        162,
+                        43,
+                        44,
+                        45,
+                        46,
+                        47,
+                        60,
+                        61,
+                        62,
+                        63,
+                        64,
+                        77,
+                        78,
+                        79,
+                        80,
+                        81,
+                        94,
+                        95,
+                        96,
+                        97,
+                        98,
+                        111,
+                        112,
+                        113,
+                        114,
+                        115,
+                    }
+                ),
+            ),  # Full stab rplanar
+            (21174, {0, 5, 10, 15, 20, 21}),  # Full stab rplanar
+            (21367, set()),  # Half stab rplanar
+        ],
+    )
+    def test_get_irrelevant_nodes(
+        self,
+        reference_data_dir: Path,
+        test_case_id: int,
+        expected_detectors: set[int],
+        use_lestim: bool,
+    ):
+        circuit_str = get_untrimmed_example_stim(test_case_id, reference_data_dir)
+        circuit = StimCircuit(circuit_str) if use_lestim else stim.Circuit(circuit_str)
+        assert get_irrelevant_nodes(circuit) == expected_detectors
+
+    # We dont need to test with stim as leakage is unsupported.
+    @pytest.mark.parametrize(
+        ("test_case_id", "expected_detectors"),
+        [
+            (19979, set()),
+            (
+                20279,
+                {
+                    4,
+                    6,
+                    7,
+                    8,
+                    12,
+                    14,
+                    15,
+                    16,
+                    20,
+                    22,
+                    23,
+                    24,
+                    28,
+                    30,
+                    31,
+                    32,
+                    36,
+                    38,
+                    39,
+                    40,
+                    44,
+                    46,
+                    47,
+                    48,
+                    52,
+                    54,
+                    55,
+                    56,
+                },
+            ),
+            (20548, get_expected_nodes_20549()),
+        ],
+    )
+    def test_get_irrelevant_nodes_leakage(
+        self,
+        reference_data_dir: Path,
+        test_case_id: int,
+        expected_detectors: set[int],
+    ):
+        # If lestim is installed then run the test, else ignore.
+        if find_spec("lestim") is not None:
+            circuit_str = get_untrimmed_example_stim(test_case_id, reference_data_dir)
+            circuit = StimCircuit(circuit_str)
+            assert get_irrelevant_nodes(circuit) == expected_detectors
+
+
+class TestGetTrimmedCircuit:
+    @pytest.mark.parametrize(("use_lestim"), [False, True])
+    @pytest.mark.parametrize(
+        ("test_case_id"),
+        [
+            (19977),  # Full mem rep
+            (20277),  # Full mem rplanar
+            (20549),  # Full mem rplanar min df-3
+            (20612),  # Full mem unrot planar min df-3
+            (20710),  # Half mem rplanar
+            (20782),  # Rectangular mem rplanar
+            (20875),  # Full stab rplanar
+            (21174),  # Full stab rplanar
+            (21367),  # Half stab rplanar
+        ],
+    )
+    def test_get_trimmed_circuit(
+        self,
+        reference_data_dir: Path,
+        test_case_id: int,
+        use_lestim: bool,
+    ):
+        untrimmed_circuit_str = get_untrimmed_example_stim(
+            test_case_id, reference_data_dir
+        )
+        trimmed_circuit_str = get_trimmed_example_stim(test_case_id, reference_data_dir)
+        if use_lestim:
+            circuit = StimCircuit(untrimmed_circuit_str)
+        else:
+            circuit = stim.Circuit(untrimmed_circuit_str)
+        assert str(get_trimmed_circuit(circuit)) == trimmed_circuit_str
+
+    # We anticipate a failure as we need to cast to stim with this function.
+    @pytest.mark.parametrize(
+        ("test_case_id"),
+        [
+            (19979),
+            (20279),
+            (20548),
+        ],
+    )
+    def test_get_trimmed_circuit_leakage_failure(
+        self,
+        reference_data_dir: Path,
+        test_case_id: int,
+    ):
+        # If lestim is installed then run the test, else ignore.
+        if find_spec("lestim") is not None:
+            untrimmed_circuit_str = get_untrimmed_example_stim(
+                test_case_id, reference_data_dir
+            )
+            circuit = StimCircuit(untrimmed_circuit_str)
+            with pytest.raises(NotImplementedError):
+                get_trimmed_circuit(circuit)

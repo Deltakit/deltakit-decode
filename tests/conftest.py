@@ -60,15 +60,10 @@ def pytest_runtest_setup(item: Function):
 
 
 @pytest.fixture(scope="session")
-def git_root():
-    return Path(__file__).parent.parent
-
-
-@pytest.fixture(scope="session")
 def random_generator():
     return np.random.default_rng()
 
 
 @pytest.fixture(scope="session")
-def reference_data_dir(git_root: Path):
-    return git_root / "tests" / "reference_data"
+def reference_data_dir():
+    return Path(__file__).parent / "reference_data"
