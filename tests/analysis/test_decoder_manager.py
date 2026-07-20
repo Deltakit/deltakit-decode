@@ -1,8 +1,8 @@
 from copy import deepcopy
 
+import deltakit_stim as stim
 import pathos
 import pytest
-import deltakit_stim as stim
 from deltakit_core.decoding_graphs import dem_to_decoding_graph_and_logicals
 
 from deltakit_decode import PyMatchingDecoder
