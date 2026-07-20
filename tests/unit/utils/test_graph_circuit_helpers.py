@@ -1,5 +1,4 @@
 # (c) Copyright Riverlane 2020-2026. All rights reserved.
-from importlib.util import find_spec
 from itertools import tee
 
 import deltakit_circuit as sp
