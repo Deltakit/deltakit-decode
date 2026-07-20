@@ -24,7 +24,9 @@ from deltakit_decode.utils import (
     pijs_edge_diff,
 )
 
-REFERENCE_DATA_DIR = Path(__file__).parent.parent.parent / "reference_data"
+REFERENCE_DATA_DIR = (
+    Path(__file__).parent.parent.parent.parent.parent / "tests" / "reference_data"
+)
 
 
 class TestDerivationToolsPij:
