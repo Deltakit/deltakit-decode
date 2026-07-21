@@ -92,7 +92,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           uv venv --python ${{ matrix.python-version }}
-          uv pip install --pre dist/*.whl --find-links ./dist/
+          uv pip install --pre dist/*.whl
           # Test installs
           uv run python -c "import deltakit_decode"
       - name: Test installs on Windows OS
