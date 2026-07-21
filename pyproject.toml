@@ -52,7 +52,7 @@ dependencies = [
   "pandas >=2.2.2, <3",
   "pandas >=2.3.3, <3; python_version >= '3.13'",
   "typing-extensions >=4, <5",
-  "tqdm >=4.66, <5",
+  "tqdm >=4, <5",
 ]
 
 [project.urls]
