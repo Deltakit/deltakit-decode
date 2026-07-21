@@ -20,9 +20,6 @@ updates:
         dependency-type: "development"
       prod-deps:
         dependency-type: "production"
-    # Deltakit dependencies should be updated when releasing, not by dependabot.
-    ignore:
-      - dependency-name: "deltakit*"
     # Ideally, we would like "widen" here. Even though it is explicitly written as "supported" for
     # uv in the documentation (https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#versioning-strategy--)
     # it is not in practice...
