@@ -41,7 +41,7 @@ dependencies = [
   "numpy>=1.26, <3",
   "networkx >=3.1, <4",
   "seaborn>=0.12, <0.14",
-  "matplotlib >=3.8, <3.12",
+  "matplotlib >=3.8, <3.11",
   "plotly >=6.5, <7.0",
   "pymatching >=2.2, <3",
   "pymatching >=2.2.2, <3; python_version >= '3.13'",
