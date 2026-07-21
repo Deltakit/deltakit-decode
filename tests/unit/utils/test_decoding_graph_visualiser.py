@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 import deltakit_stim as stim
 import pytest
 from deltakit_core.decoding_graphs import (

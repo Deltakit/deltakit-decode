@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 from contextlib import ExitStack
 from itertools import cycle
 from unittest.mock import Mock

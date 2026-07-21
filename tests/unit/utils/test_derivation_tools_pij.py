@@ -1,4 +1,4 @@
-# (c) Copyright Riverlane 2020-2025.
+# (c) Copyright Riverlane 2020-2026. All rights reserved.
 
 import math
 from pathlib import Path
@@ -24,23 +24,21 @@ from deltakit_decode.utils import (
     pijs_edge_diff,
 )
 
-REFERENCE_DATA_DIR = (
-    Path(__file__).parent.parent.parent.parent.parent / "tests" / "reference_data"
-)
+REFERENCE_DATA_DIR = Path(__file__).parent.parent.parent / "reference_data"
 
 
 class TestDerivationToolsPij:
     @pytest.fixture(scope="class")
     @classmethod
-    def stim_circuit(cls, reference_data_dir: Path):
+    def stim_circuit(cls):
         return stim.Circuit.from_file(
-            reference_data_dir / "stim" / "circuit_noisy.stim"
+            REFERENCE_DATA_DIR / "stim" / "circuit_noisy.stim"
         )
 
     @pytest.fixture(scope="class")
     @classmethod
-    def detection_events(cls, reference_data_dir: Path):
-        return reference_data_dir / "b801" / "detection_events.b8"
+    def detection_events(cls):
+        return REFERENCE_DATA_DIR / "b801" / "detection_events.b8"
 
     @pytest.mark.parametrize(
         ("circuit", "samples", "expected_pij_data"),

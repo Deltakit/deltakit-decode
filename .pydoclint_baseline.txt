@@ -297,6 +297,12 @@ src/deltakit_decode/utils/_log_utils.py
 src/deltakit_decode/utils/_pij_visualiser.py
     DOC003: Function/method `plot_correlation_matrix`: Docstring style mismatch. (Please read more at https://jsh9.github.io/pydoclint/style_mismatch.html ). You specified "google" style, but the docstring is likely not written in this style.
 --------------------
+tests/analysis/test_decoder_manager.py
+    DOC101: Method `MockNoiseModelDecoderManagerPoolMap.__init__`: Docstring contains fewer arguments than in function signature.
+    DOC106: Method `MockNoiseModelDecoderManagerPoolMap.__init__`: The option `--arg-type-hints-in-signature` is `True` but there are no argument type hints in the signature
+    DOC107: Method `MockNoiseModelDecoderManagerPoolMap.__init__`: The option `--arg-type-hints-in-signature` is `True` but not all args in the signature have type hints
+    DOC103: Method `MockNoiseModelDecoderManagerPoolMap.__init__`: Docstring arguments are different from function arguments. (Or could be other formatting issues: https://jsh9.github.io/pydoclint/violation_codes.html#notes-on-doc103 ). Arguments in the function signature but not in the docstring: [monkeypatch: , proc_managers: ].
+--------------------
 tests/analysis/test_empirical_decoding_error_distribution.py
     DOC101: Method `TestEmpiricalDecodingErrorDistribution._distribution_data_is_equal`: Docstring contains fewer arguments than in function signature.
     DOC103: Method `TestEmpiricalDecodingErrorDistribution._distribution_data_is_equal`: Docstring arguments are different from function arguments. (Or could be other formatting issues: https://jsh9.github.io/pydoclint/violation_codes.html#notes-on-doc103 ). Arguments in the function signature but not in the docstring: [distr1: EmpiricalDecodingErrorDistribution, distr2: EmpiricalDecodingErrorDistribution].
