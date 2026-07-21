@@ -8,7 +8,6 @@ updates:
   - package-ecosystem: "uv"
     directories:
       - "/"
-      - "/deltakit-*"
     schedule:
       interval: "weekly"
 
