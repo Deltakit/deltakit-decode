@@ -51,7 +51,7 @@ jobs:
           path: ./dist
       - name: Setup and sync venv for testing deltakit-decode
         run: |
-          uv sync --python ${{ matrix.python-version }} --resolution ${{matrix.dependency-resolution}} --group test --find-links ./dist/
+          uv sync --python ${{ matrix.python-version }} --resolution ${{matrix.dependency-resolution}} --group test
           uv pip install ./dist/*.whl
       - name: Test deltakit-decode
         env:
