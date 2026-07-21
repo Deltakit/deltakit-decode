@@ -64,7 +64,7 @@ jobs:
         shell: pwsh
         run: |
           uv venv --python ${{ matrix.python-version }}
-          uv pip install --pre (Get-ChildItem dist/*.whl).FullName --find-links ./dist/
+          uv pip install --pre (Get-ChildItem dist/*.whl).FullName
           uv run python -c "import deltakit_decode"
 
   test-sdist:
