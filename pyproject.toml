@@ -46,6 +46,7 @@ dependencies = [
   "plotly >=6.5, <7.0",
   "pymatching >=2.2, <3",
   "pymatching >=2.2.2, <3; python_version >= '3.13'",
+  "pymatching >=2.4, <3; python_version >= '3.14'",
   "deltakit-stim >=0.2.1,<0.3",
   "pathos >=0.3.5, <0.4",
   # This is the first version to be compatible with numpy>=2.0 according to
