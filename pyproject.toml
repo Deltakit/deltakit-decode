@@ -33,12 +33,11 @@ classifiers = [
 ]
 
 dependencies = [
-  "packaging >=25.0, <27",
-  "requests >=2.32.0",
-  "tomlkit >=0.13,<0.16",
   "deltakit-circuit >=0.9.0, <0.10",
   "deltakit-core >=0.9.0, <0.10",
   "numpy >=1.26, <3",
+  "numpy>=2.1,<3; python_version >= '3.13'",
+  "numpy>=2.3.2,<3; python_version >= '3.14'",
   "networkx >=3.1, <4",
   "seaborn>=0.12, <0.14",
   "matplotlib >=3.8, <4; python_version < '3.14'",
@@ -46,7 +45,7 @@ dependencies = [
   "plotly >=6.5, <7.0",
   "pymatching >=2.2, <3",
   "pymatching >=2.2.2, <3; python_version >= '3.13'",
-  "deltakit-stim >=0.2,<0.3",
+  "deltakit-stim >=0.2.1,<0.3",
   "pathos >=0.3.5, <0.4",
   # This is the first version to be compatible with numpy>=2.0 according to
   # https://pandas.pydata.org/pandas-docs/stable/whatsnew/v2.2.2.html
@@ -175,7 +174,4 @@ CPY = "CPY"                       # A ruff rule identifier
 
 [tool.typos.files]
 # Paths/patterns to exclude from spell checking
-extend-exclude = [
-  "**/LICENSE",
-  "**/*.html",
-]
+extend-exclude = ["**/LICENSE", "**/*.html"]
