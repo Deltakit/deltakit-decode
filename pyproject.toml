@@ -33,6 +33,7 @@ classifiers = [
 ]
 
 dependencies = [
+  "packaging >=25.0, <27",
   "deltakit-circuit >=0.9.0, <0.10",
   "deltakit-core >=0.9.0, <0.10",
   "numpy >=1.26, <3",
