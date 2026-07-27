@@ -153,6 +153,7 @@ jobs:
     steps:
       - name: Make dist dir
         run: mkdir ./dist
+      - name: Recover deltakit-decode distribution files
         uses: actions/download-artifact@v8
         with:
           pattern: publish-${{ env.pkg_name }}
