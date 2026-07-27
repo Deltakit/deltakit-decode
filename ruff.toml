@@ -106,6 +106,8 @@ ignore = [
     "B905", # Missing `strict` argument to `zip`
     # Having an explicit argument to open() for the open mode is nice.
     "UP015",
+    # Ignore too many positional arguments error.
+    "PLR0917"
 ]
 
 # Specific per-file ignores
