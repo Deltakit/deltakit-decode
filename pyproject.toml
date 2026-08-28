@@ -94,7 +94,7 @@ dev = [
   { include-group = "lint" },
   { include-group = "security" },
   "pre-commit >=4.2, <5",
-  "validate-pyproject >=0.24.1,<0.26",
+  "validate-pyproject>=0.24.1,<0.27",
 ]
 release = [
   "python-semantic-release >=10.6.1, <11",
