@@ -70,8 +70,8 @@ test = [
   "pytest-cov >=7, <8",
   "pytest-skip-slow>=0.0.5,<1.2",
   "coverage >=7.7.0, <8",
-  "pytest-mock>=3.14",
-  "pytest-lazy-fixtures>=1.0",
+  "pytest-mock>=3.14, <4",
+  "pytest-lazy-fixtures>=1.0, <2",
 ]
 stubs = [
   "types-networkx~=3.1",
