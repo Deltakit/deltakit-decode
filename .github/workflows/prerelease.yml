@@ -43,6 +43,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
           - macos-latest
+        # Temporary exclusion until a dependency (PyMatching) supports Py3.15.
         exclude:
           - os: windows-latest
             python-version: '3.15'
