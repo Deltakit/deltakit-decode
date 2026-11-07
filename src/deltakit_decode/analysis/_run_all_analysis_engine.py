@@ -1,5 +1,5 @@
 # (c) Copyright Riverlane 2020-2026. All rights reserved.
-import datetime
+import datetime as dt
 import logging
 from collections.abc import Callable, Iterable
 from multiprocessing.synchronize import Lock as LockBase
@@ -96,7 +96,7 @@ class RunAllAnalysisEngine:
         Else returns a pandas DataFrame.
         """
         # Experiment setup
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.log.info("Experiment started at %(time)", extra={"time": now})
         if self.data_directory:
             self._current_experiment_file_path = self.construct_file_path()
@@ -109,7 +109,7 @@ class RunAllAnalysisEngine:
 
         result_store = self._run_parallel() if self.parallel else self._run_serial()
 
-        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        now = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.log.info("Experiment finished at %(time)", extra={"time": now})
 
         return pd.DataFrame(result_store)
